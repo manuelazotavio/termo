@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <stdlib.h>
+
 void qwerty(char[]);
 int tamanho(char[]);
 void ajustaQwerty(char[], char[], char[]);
-void feedback(char[], char[], int);
+void ajustaPalpite(char[]);
+void feedback(char[], char[], int *);
 void feedback2(char[], char[]);
 bool existe(char, char[]);
 
@@ -34,11 +37,12 @@ int main()
         qwerty(alfabeto);
         printf("\nDigite uma palavra de 5 letras: \n\n");
         gets(palpite);
-
+        ajustaPalpite(palpite);
         ajustaQwerty(alfabeto, dailyWord, palpite);
+        system("cls");
+        printf("\n\n\n");
+        feedback(dailyWord, palpite, &corretas);
 
-        feedback(dailyWord, palpite, corretas);
-        printf("%d \n", corretas);
         feedback2(dailyWord, palpite);
 
         chances++;
@@ -117,7 +121,7 @@ bool existe(char letra, char palavra[])
     return false;
 }
 
-void feedback(char p[], char palp[], int corretas)
+void feedback(char p[], char palp[], int *corretas)
 {
 
     for (int i = 0; i < 5; i++)
@@ -125,7 +129,8 @@ void feedback(char p[], char palp[], int corretas)
 
         if (p[i] == palp[i])
         {
-            corretas++;
+
+            *corretas++;
 
             printf("%c ", palp[i]);
         }
@@ -146,5 +151,21 @@ void feedback2(char p[], char palp[])
         {
             printf("\n\nA letra %c existe na palavra. ", palp[i]);
         }
+    }
+}
+
+void ajustaPalpite(char palp[])
+{
+
+    int i = 0;
+
+    while (palp[i] != '\0')
+    {
+        if (palp[i] > 96)
+        {
+            palp[i] = palp[i] - 32;
+        }
+
+        i++;
     }
 }
