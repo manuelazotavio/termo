@@ -4,7 +4,8 @@
 void qwerty(char[]);
 int tamanho(char[]);
 void ajustaQwerty(char[], char[], char[]);
-void feedback(char[], char[], int *);
+void feedback(char[], char[], int);
+void feedback2(char[], char[]);
 bool existe(char, char[]);
 
 int main()
@@ -16,10 +17,10 @@ int main()
 
     char dailyWord[5], palpite[5]; // criei a palavra diaria
 
-    dailyWord[0] = 'F';
-    dailyWord[1] = 'A';
-    dailyWord[2] = 'Z';
-    dailyWord[3] = 'E';
+    dailyWord[0] = 'S';
+    dailyWord[1] = 'U';
+    dailyWord[2] = 'B';
+    dailyWord[3] = 'I';
     dailyWord[4] = 'R';
 
     int corretas = 0;
@@ -29,13 +30,16 @@ int main()
 
     do
     {
-        printf("\n\nDigite uma palavra de 5 caracteres: \n\n");
+
         qwerty(alfabeto);
+        printf("\nDigite uma palavra de 5 letras: \n\n");
         gets(palpite);
 
         ajustaQwerty(alfabeto, dailyWord, palpite);
 
-        feedback(dailyWord, palpite, &corretas);
+        feedback(dailyWord, palpite, corretas);
+        printf("%d \n", corretas);
+        feedback2(dailyWord, palpite);
 
         chances++;
 
@@ -53,16 +57,16 @@ int main()
     }
     else if ((chances == 5) && (corretas != 5))
     {
-        printf("\na palavra era FAZER. \n");
+        printf("\na palavra era SUBIR. \n");
         printf("tente de novo amanha. \n");
     }
 }
 
 void qwerty(char alfa[])
 {
-    printf(" \n%c %c %c %c %c %c %c %c %c %c \n", alfa[16], alfa[22], alfa[4], alfa[17], alfa[19], alfa[24], alfa[20], alfa[8], alfa[14], alfa[15]);
+    printf(" \n\n\n%c %c %c %c %c %c %c %c %c %c \n", alfa[16], alfa[22], alfa[4], alfa[17], alfa[19], alfa[24], alfa[20], alfa[8], alfa[14], alfa[15]);
     printf(" %c %c %c %c %c %c %c %c %c \n", alfa[0], alfa[18], alfa[3], alfa[5], alfa[6], alfa[7], alfa[9], alfa[10], alfa[11]);
-    printf(" %c %c %c %c %c %c %c \n\n\n", alfa[25], alfa[23], alfa[2], alfa[21], alfa[1], alfa[13], alfa[12]);
+    printf(" %c %c %c %c %c %c %c \n", alfa[25], alfa[23], alfa[2], alfa[21], alfa[1], alfa[13], alfa[12]);
 }
 
 int tamanho(char palavra[])
@@ -113,7 +117,7 @@ bool existe(char letra, char palavra[])
     return false;
 }
 
-void feedback(char p[], char palp[], int *corretas)
+void feedback(char p[], char palp[], int corretas)
 {
 
     for (int i = 0; i < 5; i++)
@@ -121,13 +125,26 @@ void feedback(char p[], char palp[], int *corretas)
 
         if (p[i] == palp[i])
         {
-            *corretas++;
+            corretas++;
+
             printf("%c ", palp[i]);
         }
         else
         {
-
             printf("%c ", 95);
+        }
+    }
+}
+
+void feedback2(char p[], char palp[])
+{
+
+    for (int i = 0; i < 5; i++)
+    {
+
+        if ((p[i] != palp[i]) && (existe(palp[i], p)))
+        {
+            printf("\n\nA letra %c existe na palavra. ", palp[i]);
         }
     }
 }
