@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <stdlib.h>
+ #include  <stdlib.h>
 
 void qwerty(char[]);
 int tamanho(char[]);
 void ajustaQwerty(char[], char[], char[]);
-void ajustaPalpite(char[]);
-void feedback(char[], char[], int *);
+void ajustaPalpite(char []);
+void feedback(char[], char[], int*);
 void feedback2(char[], char[]);
 bool existe(char, char[]);
 
@@ -33,19 +33,21 @@ int main()
 
     do
     {
-
+		
         qwerty(alfabeto);
         printf("\nDigite uma palavra de 5 letras: \n\n");
         gets(palpite);
-        ajustaPalpite(palpite);
+		ajustaPalpite(palpite);
         ajustaQwerty(alfabeto, dailyWord, palpite);
-        system("cls");
-        printf("\n\n\n");
+		system("cls");
+		printf("\n\n\n");
         feedback(dailyWord, palpite, &corretas);
-
+     
         feedback2(dailyWord, palpite);
 
         chances++;
+        
+        
 
     } while ((corretas < 5) && (chances < 5));
 
@@ -64,6 +66,8 @@ int main()
         printf("\na palavra era SUBIR. \n");
         printf("tente de novo amanha. \n");
     }
+    
+    return 0;
 }
 
 void qwerty(char alfa[])
@@ -126,19 +130,24 @@ void feedback(char p[], char palp[], int *corretas)
 
     for (int i = 0; i < 5; i++)
     {
+    
 
         if (p[i] == palp[i])
         {
-
-            *corretas++;
-
+        	
+            *corretas = *corretas + 1;
+            
             printf("%c ", palp[i]);
         }
         else
         {
             printf("%c ", 95);
         }
+         
+        
     }
+    
+   
 }
 
 void feedback2(char p[], char palp[])
@@ -146,26 +155,29 @@ void feedback2(char p[], char palp[])
 
     for (int i = 0; i < 5; i++)
     {
-
-        if ((p[i] != palp[i]) && (existe(palp[i], p)))
+    	
+        if  ((p[i] != palp[i]) && (existe(palp[i], p)))
         {
             printf("\n\nA letra %c existe na palavra. ", palp[i]);
         }
+        
+        
+        
     }
+    
+    
 }
 
-void ajustaPalpite(char palp[])
-{
-
-    int i = 0;
-
-    while (palp[i] != '\0')
-    {
-        if (palp[i] > 96)
-        {
-            palp[i] = palp[i] - 32;
-        }
-
-        i++;
-    }
+void ajustaPalpite(char palp[]){
+	
+	int i = 0;
+	
+	while (palp[i] != '\0') {
+		if(palp[i] > 96) {
+			palp[i] = palp[i] - 32;
+		}
+		
+	i++;
+	}
+	
 }
