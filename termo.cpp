@@ -20,7 +20,6 @@ int main()
     char dailyWord[5];
 
     sorteio(dailyWord);
-
     puts(dailyWord);
 
     char alfabeto[26];
@@ -31,7 +30,7 @@ int main()
     char palpite[5]; // criei a palavra diaria
 
     int corretas = 0;
-    int chances = 0;
+    int chances = 5;
 
     printf("\n");
 
@@ -44,27 +43,24 @@ int main()
         ajustaQwerty(alfabeto, dailyWord, palpite);
         system("cls");
         printf("\n\n\n");
+
+        corretas = 0;
         feedback(dailyWord, palpite, &corretas);
 
         feedback2(dailyWord, palpite);
 
-        chances++;
+        chances--;
+        printf("\n\n\nRestam %d chances!", chances);
 
-    } while ((corretas < 5) && (chances < 5));
+    } while ((corretas < 5) && (chances > 0));
 
-    if ((corretas == 5) && (chances < 6))
+    if ((corretas == 5) && (chances > 0))
     {
-        printf("\nvoce venceu!!!!! \n");
-    }
-    else if ((corretas < 5) && (chances < 4))
-    {
-        printf("\nmais uma chance! \n");
-        printf("\n letras disponiveis: \n");
-        corretas = 0;
+        printf("\nPARABENS!!! Voce acertou. \n");
     }
     else if ((chances == 5) && (corretas != 5))
     {
-        printf("\na palavra era SUBIR. \n");
+        printf("\na palavra era %s. \n", dailyWord);
         printf("tente de novo amanha. \n");
     }
 
@@ -265,7 +261,7 @@ void feedback2(char p[], char palp[])
 
         if ((p[i] != palp[i]) && (existe(palp[i], p)))
         {
-            printf("\n\nExiste mais um %c na palavra. ", palp[i]);
+            printf("\n\nExiste um '%c' na palavra. ", palp[i]);
         }
     }
 }
